@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "_consts": ["consts"],
+      "_consts/*": ["consts/*"],
+      "_bin": ["bin"],
+      "_bin/*": ["bin/*"],
+      "_utils": ["utils"],
+      "_utils/*": ["utils/*"]
+    }
+  },
+  "tsc-alias": {
+    "resolveFullPaths": true
+  }
+}
