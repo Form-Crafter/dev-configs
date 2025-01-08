@@ -2,12 +2,17 @@ import fs from 'fs'
 import fsPromises from 'fs/promises'
 import path from 'path'
 
-export const getFile = async (fileName: string, isJson = false) => {
-    const pathName = path.resolve(fileName)
+export const fileIsExists = async (filePath: string) => {
+    const pathName = path.resolve(filePath)
+    return fs.existsSync(pathName)
+}
+
+export const getFile = async (filePath: string, isJson = false): Promise<string | Record<string, any> | undefined> => {
+    const pathName = path.resolve(filePath)
 
     if (fs.existsSync(pathName)) {
         const data = fs.readFileSync(pathName)
-        return isJson ? JSON.parse(data.toString('utf-8')) : data.toString()
+        return isJson ? (JSON.parse(data.toString('utf-8')) as Record<string, any>) : data.toString()
     }
 
     return undefined

@@ -7,7 +7,9 @@
       "_bin": ["bin"],
       "_bin/*": ["bin/*"],
       "_utils": ["utils"],
-      "_utils/*": ["utils/*"]
+      "_utils/*": ["utils/*"],
+      "_templates": ["templates"],
+      "_templates/*": ["templates/*"]
     }
   },
   "tsc-alias": {

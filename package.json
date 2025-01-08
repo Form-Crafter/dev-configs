@@ -7,20 +7,20 @@
     "dist"
   ],
   "bin": {
-    "dev-configs": "./dist/scripts/install.js"
+    "install-dev-configs": "./dist/bin/install.js"
   },
   "scripts": {
     "build": "npm run clean && npm run transfer && npm run build:tsc",
     "build:tsc": "tsc && tsc-alias",
     "clean": "rimraf ./dist",
-    "transfer": "npm run transfer-editorconfig && npm run transfer-gitignore && npm run transfer-lint-staged && npm run transfer-eslint && npm run transfer-prettier && npm run transfer-jest && npm run transfer-tsconfig",
-    "transfer-editorconfig": "mkdirp ./dist && ncp ./.editorconfig ./dist/.editorconfig",
-    "transfer-lint-staged": "mkdirp ./dist/lint-staged.config && ncp ./lint-staged.config.js ./dist/lint-staged.config/index.js",
-    "transfer-eslint": "mkdirp ./dist/eslint && ncp ./eslint.config.js ./dist/eslint/index.js",
-    "transfer-gitignore": "mkdirp ./dist && ncp ./.gitignore ./dist/.gitignore",
-    "transfer-prettier": "mkdirp ./dist/prettier && ncp ./.prettierrc ./dist/prettier/index.json",
+    "transfer": "mkdirp ./dist && npm run transfer-editorconfig && npm run transfer-gitignore && npm run transfer-lint-staged && npm run transfer-eslint && npm run transfer-prettier && npm run transfer-jest && npm run transfer-tsconfig",
+    "transfer-editorconfig": "ncp ./.editorconfig ./dist/.editorconfig",
+    "transfer-lint-staged": "ncp ./lint-staged.config.js ./dist/lint-staged.config.js",
+    "transfer-eslint": "ncp ./eslint.config.js ./dist/eslint.config.js",
+    "transfer-gitignore": "ncp ./.gitignore ./dist/.gitignore",
+    "transfer-prettier": "ncp ./.prettierrc ./dist/.prettierrc",
     "transfer-tsconfig": "ncp ./tsconfig.base.json ./dist/tsconfig.json",
-    "transfer-jest": "mkdirp ./dist/jest && ncp ./jest.config.js ./dist/jest/index.js",
+    "transfer-jest": "ncp ./jest.config.js ./dist/jest.config.js",
     "prepare": "husky",
     "format": "prettier --write ./src --config ./.prettierrc",
     "lint": "run-s lint:*",
@@ -29,12 +29,19 @@
     "fix": "npm run lint:eslint -- --fix && npm run lint:tsc"
   },
   "devDependencies": {
+    "rimraf": "^6.0.1",
+    "mkdirp": "^3.0.1",
+    "@types/chalk": "^2.2.4",
+    "@types/ora": "^3.1.0",
+    "ncp": "^2.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "ora": "^8.1.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@types/chalk": "^2.2.4",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.5",
-    "@types/ora": "^3.1.0",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -44,17 +51,10 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
-    "mkdirp": "^3.0.1",
-    "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.10",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.19.1"
-  },
-  "dependencies": {
-    "chalk": "^5.4.1",
-    "ora": "^8.1.1"
   }
 }
