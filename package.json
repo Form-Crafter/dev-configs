@@ -1,8 +1,11 @@
 {
   "name": "@form-crafter/dev-configs",
-  "private": true,
+  "author": "Form Crafter",
   "version": "0.1.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "bin": {
     "dev-configs": "./dist/scripts/install.js"
   },
