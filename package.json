@@ -7,8 +7,8 @@
     "dist"
   ],
   "bin": {
-    "dev-configs-install": "./dist/bin/install.js",
-    "dev-configs-aliases": "./dist/bin/aliases.js"
+    "dev-configs-install": "dist/bin/install.js",
+    "dev-configs-aliases": "dist/bin/aliases.js"
   },
   "scripts": {
     "build": "npm run clean && npm run transfer && npm run build:tsc",
