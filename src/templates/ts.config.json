@@ -1,3 +1,3 @@
 {
-    "extends": "@form-crafter/dev-configs/dist/tsconfig.json"
+    "extends": "@form-crafter/dev-configs/dist"
 }

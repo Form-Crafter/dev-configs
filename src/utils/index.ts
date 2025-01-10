@@ -2,7 +2,9 @@ import fs from 'fs'
 import fsPromises from 'fs/promises'
 import path from 'path'
 
-export const fileIsExists = async (filePath: string) => {
+export const toJSON = (data: any) => JSON.stringify(data, null, 2)
+
+export const fileIsExists = (filePath: string) => {
     const pathName = path.resolve(filePath)
     return fs.existsSync(pathName)
 }
@@ -26,3 +28,5 @@ export const copyFile = async (name: string, dirPath: string, prepareOut: (data:
 export const createFile = async (name: string, data: string) => {
     await fsPromises.writeFile(path.resolve(name), data)
 }
+
+export const isObject = (data: any): data is Record<string, any> => data !== null && typeof data === 'object'

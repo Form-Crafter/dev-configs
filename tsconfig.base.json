@@ -13,7 +13,6 @@
     "moduleDetection": "force",
     "noEmit": false,
     "outDir": "./dist",
-    "rootDir": "./src",
 
     /* Linting */
     "strict": true,
@@ -41,10 +40,7 @@
       "_consts": ["consts"],
       "_consts/*": ["consts/*"],
       "_hooks": ["hooks"],
-      "_hooks/*": ["hooks/*"],
-      "_libs": ["libs"],
-      "_libs/*": ["libs/*"]
+      "_hooks/*": ["hooks/*"]
     }
   },
-  "include": ["src"]
 }

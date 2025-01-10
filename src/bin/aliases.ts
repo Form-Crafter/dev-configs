@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
-import { createConfigFiles } from 'scripts/createConfigFiles'
+import { addAliases } from 'scripts/addAliases'
 ;(async function main() {
     try {
-        console.log(chalk.green(await createConfigFiles()))
+        console.log(chalk.green(await addAliases()))
     } catch (message) {
         console.log(chalk.red(message))
     }

@@ -1,58 +1,78 @@
+import fs from 'fs/promises'
 import ora from 'ora'
 
-import { copyFile, createFile, fileIsExists, getFile } from '_utils'
+import {
+    additionalPkgScripts,
+    configsFiles,
+    distPath,
+    editorconfigName,
+    eslintConfigName,
+    eslintConfigTemplateName,
+    gitignoreName,
+    jestConfigName,
+    jestConfigTemplateName,
+    lintStagedConfigName,
+    pkgName,
+    tsConfigName,
+    tsConfigTemplateName,
+} from '_consts'
+import { PackageJson } from '_types'
+import { copyFile, createFile, fileIsExists, getFile, toJSON } from '_utils'
 
-const eslintConfigName = 'eslint.config.js'
-const jestConfigName = 'jest.config.js'
-const tsConfigName = 'tsconfig.json'
-const editorconfigName = '.editorconfig'
-const gitignoreName = '.gitignore'
-const lintStagedConfigName = 'lint-staged.config.js'
+const addPackageJsonConfig = async () => {
+    const pkg = (await getFile(`./${pkgName}`, true)) as PackageJson
 
-const configsFiles = [eslintConfigName, jestConfigName, tsConfigName, editorconfigName, gitignoreName, lintStagedConfigName]
+    const resultPkg: PackageJson = {
+        ...pkg,
+        scripts: {
+            ...pkg.scripts,
+            ...additionalPkgScripts,
+        },
+    }
 
-const eslintConfigTemplateName = eslintConfigName
-const jestConfigTemplateName = jestConfigName
-const tsConfigTemplateName = 'ts.config.json'
+    if (!pkg.prettier) {
+        resultPkg.prettier = '@form-crafter/dev-configs/dist/.prettierrc'
+    }
 
-const distPath = 'node_modules/@form-crafter/dev-configs/dist'
+    await fs.writeFile(pkgName, toJSON(resultPkg))
+}
 
 export const createConfigFiles = () =>
     new Promise(async (res, rej) => {
         const spinner = ora('Installing packages...').start()
 
-        const configsFilesToCreate = configsFiles.filter(fileIsExists)
+        const configsFilesToCreate = configsFiles.filter((fileName) => !fileIsExists(fileName))
 
-        const tasksOfCreateFiles: Promise<any>[] = []
+        const tasksOfCreateCongifs: Promise<any>[] = [addPackageJsonConfig()]
 
         configsFilesToCreate.forEach(async (configFileName) => {
             switch (configFileName) {
                 case eslintConfigName:
                     const eslintConfigData = await getFile(`${distPath}/templates/${eslintConfigTemplateName}`)
                     if (typeof eslintConfigData === 'string') {
-                        tasksOfCreateFiles.push(createFile(eslintConfigName, eslintConfigData))
+                        tasksOfCreateCongifs.push(createFile(eslintConfigName, eslintConfigData))
                     }
                     return
                 case jestConfigName:
                     const jestConfigData = await getFile(`${distPath}/templates/${jestConfigTemplateName}`)
                     if (typeof jestConfigData === 'string') {
-                        tasksOfCreateFiles.push(createFile(jestConfigName, jestConfigData))
+                        tasksOfCreateCongifs.push(createFile(jestConfigName, jestConfigData))
                     }
                     return
                 case tsConfigName:
                     const tsConfigData = await getFile(`${distPath}/templates/${tsConfigTemplateName}`, true)
                     if (typeof tsConfigData === 'object') {
-                        tasksOfCreateFiles.push(createFile(tsConfigName, JSON.stringify(tsConfigData, null, 4)))
+                        tasksOfCreateCongifs.push(createFile(tsConfigName, toJSON(tsConfigData)))
                     }
                     return
                 case editorconfigName:
-                    tasksOfCreateFiles.push(copyFile(editorconfigName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(editorconfigName, distPath))
                     return
                 case gitignoreName:
-                    tasksOfCreateFiles.push(copyFile(gitignoreName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(gitignoreName, distPath))
                     return
                 case lintStagedConfigName:
-                    tasksOfCreateFiles.push(copyFile(lintStagedConfigName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(lintStagedConfigName, distPath))
                     return
                 default:
                     return
@@ -60,7 +80,7 @@ export const createConfigFiles = () =>
         })
 
         try {
-            await Promise.all(tasksOfCreateFiles)
+            await Promise.all(tasksOfCreateCongifs)
             res('Configuration files successfully created')
         } catch (e: any) {
             rej(e?.message || 'Unknown error')
