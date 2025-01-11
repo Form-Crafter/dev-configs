@@ -18,7 +18,7 @@
     "transfer:editorconfig": "ncp ./.editorconfig ./dist/.editorconfig",
     "transfer:lint-staged": "ncp ./lint-staged.config.js ./dist/lint-staged.config.js",
     "transfer:eslint": "ncp ./eslint.config.js ./dist/eslint.config.js",
-    "transfer:gitignore": "ncp ./.gitignore ./dist/.gitignore",
+    "transfer:gitignore": "ncp ./.gitignore ./dist/gitignore.txt",
     "transfer:prettier": "ncp ./.prettierrc ./dist/prettier.json",
     "transfer:tsconfig": "ncp ./tsconfig.base.json ./dist/tsconfig.json",
     "transfer:jest": "ncp ./jest.config.js ./dist/jest.config.js",

@@ -15,7 +15,7 @@ export const jestConfigName = 'jest.config.js'
 export const tsConfigName = 'tsconfig.json'
 export const viteConfigName = 'vite.config.ts'
 export const editorconfigName = '.editorconfig'
-export const gitignoreName = '.gitignore'
+export const gitignoreName = 'gitignore.txt'
 export const lintStagedConfigName = 'lint-staged.config.js'
 
 export const configsFiles = [eslintConfigName, jestConfigName, tsConfigName, editorconfigName, gitignoreName, lintStagedConfigName]
