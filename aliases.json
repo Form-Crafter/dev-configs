@@ -3,7 +3,10 @@
     "_consts": "consts",
     "_enums": "enums",
     "_hocs": "hocs",
-    "_hooks": "hooks",
+                
+        
+    
+                "_hooks": "hooks",
     "_services": "services",
     "_types": "types",
     "_utils": "utils",

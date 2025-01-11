@@ -4,6 +4,8 @@ import ora from 'ora'
 import { aliasesFile, tsConfigName, viteConfigName } from '_consts'
 import { getFile, toJSON } from '_utils'
 
+const tabWidth = '    ' // 4 spaces
+
 const addToTsConfig = async (fileContent: Record<string, any>, aliases: Record<string, any>) => {
     const paths = Object.entries(aliases).reduce((result, [alias, path]) => {
         return {
@@ -32,14 +34,15 @@ const addToViteConfig = async (fileContent: string, aliases: Record<string, any>
         }
     }, {})
 
-    const pathsStr = Object.entries(paths)
+    let pathsStr = Object.entries(paths)
         .map(([key, value]) => `${key}: ${value}`)
-        .join(',\n      ')
+        .join(`,\n${tabWidth.repeat(3)}`)
+    pathsStr += ','
 
     const aliasPattern = /alias:\s*{[^}]*}/
 
     if (aliasPattern.test(fileContent)) {
-        fileContent = fileContent.replace(aliasPattern, `alias: {\n      ${pathsStr}\n    }`)
+        fileContent = fileContent.replace(aliasPattern, `alias: {\n${tabWidth.repeat(3)}${pathsStr}\n${tabWidth.repeat(2)}}`)
     }
 
     await fs.writeFile(viteConfigName, fileContent)
