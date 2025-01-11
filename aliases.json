@@ -1,0 +1,13 @@
+{
+    "_components": "components",
+    "_consts": "consts",
+    "_enums": "enums",
+    "_hocs": "hocs",
+    "_hooks": "hooks",
+    "_services": "services",
+    "_types": "types",
+    "_utils": "utils",
+    "_validators": "validators",
+    "_relations": "relations",
+    "_pages": "pages"
+}

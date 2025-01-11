@@ -15,6 +15,7 @@
     "tsc:build": "tsc && tsc-alias",
     "clean": "rimraf ./dist",
     "transfer": "mkdirp ./dist && run-s transfer:*",
+    "transfer:aliases": "ncp ./aliases.json ./dist/aliases.json",
     "transfer:editorconfig": "ncp ./.editorconfig ./dist/.editorconfig",
     "transfer:lint-staged": "ncp ./lint-staged.config.js ./dist/lint-staged.config.js",
     "transfer:eslint": "ncp ./eslint.config.js ./dist/eslint.config.js",

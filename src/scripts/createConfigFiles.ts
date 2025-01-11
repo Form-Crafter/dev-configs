@@ -3,16 +3,17 @@ import ora from 'ora'
 
 import {
     additionalPkgScripts,
-    configsFiles,
+    aliasesFile,
+    destConfigsFiles,
     distModulePath,
     distPath,
-    editorconfigName,
+    editorconfigFile,
     eslintConfigName,
     eslintConfigTemplateName,
-    gitignoreName,
+    gitignoreFile,
     jestConfigName,
     jestConfigTemplateName,
-    lintStagedConfigName,
+    lintStagedConfigFile,
     pkgName,
     tsConfigName,
     tsConfigTemplateName,
@@ -42,12 +43,18 @@ export const createConfigFiles = () =>
     new Promise(async (res, rej) => {
         const spinner = ora('Installing packages...').start()
 
-        const configsFilesToCreate = configsFiles.filter((fileName) => !fileIsExists(fileName))
+        const destConfigsFilesToCreate = destConfigsFiles.filter((fileName) => !fileIsExists(fileName))
 
         const tasksOfCreateCongifs: Promise<any>[] = [addPackageJsonConfig()]
 
-        configsFilesToCreate.forEach(async (configFileName) => {
+        destConfigsFilesToCreate.forEach(async (configFileName) => {
             switch (configFileName) {
+                case tsConfigName:
+                    const tsConfigData = await getFile(`${distModulePath}/templates/${tsConfigTemplateName}`, true)
+                    if (typeof tsConfigData === 'object') {
+                        tasksOfCreateCongifs.push(createFile(tsConfigName, toJSON(tsConfigData)))
+                    }
+                    return
                 case eslintConfigName:
                     const eslintConfigData = await getFile(`${distModulePath}/templates/${eslintConfigTemplateName}`)
                     if (typeof eslintConfigData === 'string') {
@@ -60,20 +67,17 @@ export const createConfigFiles = () =>
                         tasksOfCreateCongifs.push(createFile(jestConfigName, jestConfigData))
                     }
                     return
-                case tsConfigName:
-                    const tsConfigData = await getFile(`${distModulePath}/templates/${tsConfigTemplateName}`, true)
-                    if (typeof tsConfigData === 'object') {
-                        tasksOfCreateCongifs.push(createFile(tsConfigName, toJSON(tsConfigData)))
-                    }
+                case aliasesFile.destName:
+                    tasksOfCreateCongifs.push(copyFile(aliasesFile, distModulePath))
                     return
-                case editorconfigName:
-                    tasksOfCreateCongifs.push(copyFile(editorconfigName, distModulePath))
+                case editorconfigFile.destName:
+                    tasksOfCreateCongifs.push(copyFile(editorconfigFile, distModulePath))
                     return
-                case gitignoreName:
-                    tasksOfCreateCongifs.push(copyFile(gitignoreName, distModulePath))
+                case gitignoreFile.destName:
+                    tasksOfCreateCongifs.push(copyFile(gitignoreFile, distModulePath))
                     return
-                case lintStagedConfigName:
-                    tasksOfCreateCongifs.push(copyFile(lintStagedConfigName, distModulePath))
+                case lintStagedConfigFile.destName:
+                    tasksOfCreateCongifs.push(copyFile(lintStagedConfigFile, distModulePath))
                     return
                 default:
                     return

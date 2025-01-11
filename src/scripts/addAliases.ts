@@ -1,22 +1,8 @@
 import fs from 'fs/promises'
 import ora from 'ora'
 
-import { aliasesConfigName, tsConfigName, viteConfigName } from '_consts'
+import { aliasesFile, tsConfigName, viteConfigName } from '_consts'
 import { getFile, toJSON } from '_utils'
-
-const getDefaultAliasesConfig = () => ({
-    _components: 'components',
-    _consts: 'consts',
-    _enums: 'enums',
-    _hocs: 'hocs',
-    _hooks: 'hooks',
-    _services: 'services',
-    _types: 'types',
-    _utils: 'utils',
-    _validators: 'validators',
-    _relations: 'relations',
-    _pages: 'pages',
-})
 
 const addToTsConfig = async (fileContent: Record<string, any>, aliases: Record<string, any>) => {
     const paths = Object.entries(aliases).reduce((result, [alias, path]) => {
@@ -63,9 +49,9 @@ export const addAliases = () =>
     new Promise(async (res, rej) => {
         const spinner = ora('Adding aliases...').start()
 
-        let aliases = await getFile(aliasesConfigName, true)
+        const aliases = await getFile(aliasesFile.destName, true)
         if (!aliases) {
-            aliases = getDefaultAliasesConfig()
+            rej(`${aliasesFile.destName} file not found`)
         }
 
         const tsConfig = await getFile(tsConfigName, true)

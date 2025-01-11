@@ -8,17 +8,38 @@ export const additionalPkgScripts = {
     fix: 'npm run lint:eslint -- --fix && npm run lint:tsc',
 }
 
-export const aliasesConfigName = 'aliases.json'
 export const pkgName = 'package.json'
 export const eslintConfigName = 'eslint.config.js'
 export const jestConfigName = 'jest.config.js'
 export const tsConfigName = 'tsconfig.json'
 export const viteConfigName = 'vite.config.ts'
-export const editorconfigName = '.editorconfig'
-export const gitignoreName = 'gitignore.txt'
-export const lintStagedConfigName = 'lint-staged.config.js'
 
-export const configsFiles = [eslintConfigName, jestConfigName, tsConfigName, editorconfigName, gitignoreName, lintStagedConfigName]
+export const aliasesFile = {
+    sourceName: 'aliases.json',
+    destName: 'aliases.json',
+}
+export const editorconfigFile = {
+    sourceName: '.editorconfig',
+    destName: '.editorconfig',
+}
+export const gitignoreFile = {
+    sourceName: 'gitignore.txt',
+    destName: '.gitignore',
+}
+export const lintStagedConfigFile = {
+    sourceName: 'lint-staged.config.js',
+    destName: 'lint-staged.config.js',
+}
+
+export const destConfigsFiles = [
+    eslintConfigName,
+    jestConfigName,
+    tsConfigName,
+    aliasesFile.destName,
+    editorconfigFile.destName,
+    gitignoreFile.destName,
+    lintStagedConfigFile.destName,
+]
 
 export const eslintConfigTemplateName = eslintConfigName
 export const jestConfigTemplateName = jestConfigName

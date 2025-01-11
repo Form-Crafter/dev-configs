@@ -20,9 +20,13 @@ export const getFile = async (filePath: string, isJson = false): Promise<string 
     return undefined
 }
 
-export const copyFile = async (name: string, dirPath: string, prepareOut: (data: any) => Parameters<typeof fs.writeFile>['1'] = (data) => data) => {
-    const fileData = await getFile(`${dirPath}/${name}`)
-    await fsPromises.writeFile(path.resolve(name), prepareOut(fileData))
+export const copyFile = async (
+    { destName, sourceName = destName }: { destName: string; sourceName?: string },
+    dirPath: string,
+    prepareOut: (data: any) => Parameters<typeof fs.writeFile>['1'] = (data) => data,
+) => {
+    const fileData = await getFile(`${dirPath}/${sourceName}`)
+    await fsPromises.writeFile(path.resolve(destName), prepareOut(fileData))
 }
 
 export const createFile = async (name: string, data: string) => {
