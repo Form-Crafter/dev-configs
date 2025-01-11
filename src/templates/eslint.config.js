@@ -1,3 +1,3 @@
-import eslintConfig from '@form-builder/dev-configs/dist/eslint/index.js'
+import eslintConfig from '@form-crafter/dev-configs/dist/eslint.config.js'
 
 export default [...eslintConfig]

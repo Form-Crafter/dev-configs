@@ -4,6 +4,7 @@ import ora from 'ora'
 import {
     additionalPkgScripts,
     configsFiles,
+    distModulePath,
     distPath,
     editorconfigName,
     eslintConfigName,
@@ -31,7 +32,7 @@ const addPackageJsonConfig = async () => {
     }
 
     if (!pkg.prettier) {
-        resultPkg.prettier = '@form-crafter/dev-configs/dist/.prettierrc'
+        resultPkg.prettier = `${distPath}/prettier.json`
     }
 
     await fs.writeFile(pkgName, toJSON(resultPkg))
@@ -48,31 +49,31 @@ export const createConfigFiles = () =>
         configsFilesToCreate.forEach(async (configFileName) => {
             switch (configFileName) {
                 case eslintConfigName:
-                    const eslintConfigData = await getFile(`${distPath}/templates/${eslintConfigTemplateName}`)
+                    const eslintConfigData = await getFile(`${distModulePath}/templates/${eslintConfigTemplateName}`)
                     if (typeof eslintConfigData === 'string') {
                         tasksOfCreateCongifs.push(createFile(eslintConfigName, eslintConfigData))
                     }
                     return
                 case jestConfigName:
-                    const jestConfigData = await getFile(`${distPath}/templates/${jestConfigTemplateName}`)
+                    const jestConfigData = await getFile(`${distModulePath}/templates/${jestConfigTemplateName}`)
                     if (typeof jestConfigData === 'string') {
                         tasksOfCreateCongifs.push(createFile(jestConfigName, jestConfigData))
                     }
                     return
                 case tsConfigName:
-                    const tsConfigData = await getFile(`${distPath}/templates/${tsConfigTemplateName}`, true)
+                    const tsConfigData = await getFile(`${distModulePath}/templates/${tsConfigTemplateName}`, true)
                     if (typeof tsConfigData === 'object') {
                         tasksOfCreateCongifs.push(createFile(tsConfigName, toJSON(tsConfigData)))
                     }
                     return
                 case editorconfigName:
-                    tasksOfCreateCongifs.push(copyFile(editorconfigName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(editorconfigName, distModulePath))
                     return
                 case gitignoreName:
-                    tasksOfCreateCongifs.push(copyFile(gitignoreName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(gitignoreName, distModulePath))
                     return
                 case lintStagedConfigName:
-                    tasksOfCreateCongifs.push(copyFile(lintStagedConfigName, distPath))
+                    tasksOfCreateCongifs.push(copyFile(lintStagedConfigName, distModulePath))
                     return
                 default:
                     return

@@ -24,4 +24,5 @@ export const eslintConfigTemplateName = eslintConfigName
 export const jestConfigTemplateName = jestConfigName
 export const tsConfigTemplateName = 'ts.config.json'
 
-export const distPath = 'node_modules/@form-crafter/dev-configs/dist'
+export const distPath = '@form-crafter/dev-configs/dist'
+export const distModulePath = `node_modules/${distPath}`

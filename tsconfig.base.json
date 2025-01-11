@@ -12,7 +12,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": false,
-    "outDir": "./dist",
 
     /* Linting */
     "strict": true,
@@ -25,22 +24,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-
-    "baseUrl": "./src",
-    "paths": {
-      "_components": ["components"],
-      "_components/*": ["components/*"],
-      "_utils": ["utils"],
-      "_utils/*": ["utils/*"],
-      "_types": ["types"],
-      "_types/*": ["types/*"],
-      "_services": ["services"],
-      "_services/*": ["services/*"],
-      "_consts": ["consts"],
-      "_consts/*": ["consts/*"],
-      "_hooks": ["hooks"],
-      "_hooks/*": ["hooks/*"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
 }

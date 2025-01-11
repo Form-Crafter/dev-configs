@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./src",
     "paths": {
       "_consts": ["consts"],
       "_consts/*": ["consts/*"],
