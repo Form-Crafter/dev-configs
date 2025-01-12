@@ -12,7 +12,6 @@ export const pkgName = 'package.json'
 export const eslintConfigName = 'eslint.config.js'
 export const jestConfigName = 'jest.config.js'
 export const tsConfigName = 'tsconfig.json'
-export const viteConfigName = 'vite.config.ts'
 
 export const aliasesFile = {
     sourceName: 'aliases.json',
