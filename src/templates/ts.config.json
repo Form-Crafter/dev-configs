@@ -1,3 +1,7 @@
 {
-    "extends": "@form-crafter/dev-configs/dist"
+    "extends": "@form-crafter/dev-configs/dist",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "baseUrl": "./src"
+    }
 }
