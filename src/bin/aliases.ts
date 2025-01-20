@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
-import { addAliases } from 'scripts/addAliases'
+import { addAliases } from 'scripts/add-aliases'
 ;(async function main() {
     try {
         console.log(chalk.green(await addAliases()))

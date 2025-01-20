@@ -2,6 +2,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
@@ -12,11 +13,29 @@ export default [
                 version: 'detect',
             },
         },
-        languageOptions: { globals: { ...globals.browser } },
+        languageOptions: { globals: globals.builtin },
     },
     ...tseslint.configs.recommended,
     pluginReactConfig,
     eslintPluginPrettierRecommended,
+    {
+        plugins: {
+            unicorn: eslintPluginUnicorn,
+        },
+        rules: {
+            'unicorn/filename-case': [
+                'error',
+                {
+                    cases: {
+                        kebabCase: true,
+                        pascalCase: true,
+                        camelCase: false,
+                        snakeCase: false,
+                    },
+                },
+            ],
+        },
+    },
     {
         plugins: {
             'react-hooks': pluginReactHooks,
