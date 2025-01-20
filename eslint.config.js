@@ -30,7 +30,20 @@ export default [
                         kebabCase: true,
                         pascalCase: true,
                         camelCase: false,
-                        snakeCase: false,
+                        snakeCase: true,
+                    },
+                },
+            ],
+        },
+    },
+    {
+        files: ['**/{u,U}{s,S}{e,E}*.{ts,tsx}'],
+        rules: {
+            'unicorn/filename-case': [
+                'error',
+                {
+                    cases: {
+                        camelCase: true,
                     },
                 },
             ],
